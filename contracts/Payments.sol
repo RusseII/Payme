@@ -14,7 +14,21 @@ contract Payments {
     emit Received(msg.sender, msg.value);
   }
 
-  function getBalance() external view returns (uint256) {
+  function getUserBalance() external view returns (uint256) {
     return balances[msg.sender];
   }
+
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+  
+  function withdraw(address payable _to) public payable {
+        require(_to == msg.sender, "No permission to withdraw");
+
+        // Call returns a boolean value indicating success or failure.
+        // This is the current recommended method to use.
+        (bool sent,) = _to.call{value: balances[msg.sender]}("");
+        require(sent, "Failed to send Ether");
+        balances[msg.sender] = 0;
+    }
 }
