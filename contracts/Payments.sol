@@ -20,13 +20,11 @@ contract Payments {
         return address(this).balance;
     }
   
-  function withdraw(address _to) public {
-        require(_to == msg.sender, "No permission to withdraw");
-
+  function withdraw() public {
+        balances[msg.sender] = 0;
         // Call returns a boolean value indicating success or failure.
         // This is the current recommended method to use.
-        (bool sent,) = _to.call{value: balances[msg.sender]}("");
+        (bool sent,) = msg.sender.call{value: balances[msg.sender]}("");
         require(sent, "Failed to send Ether");
-        balances[msg.sender] = 0;
     }
 }
