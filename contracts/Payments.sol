@@ -21,10 +21,12 @@ contract Payments {
     }
   
   function withdraw() public {
+        uint share = balances[msg.sender];
+
         balances[msg.sender] = 0;
         // Call returns a boolean value indicating success or failure.
         // This is the current recommended method to use.
-        (bool sent,) = msg.sender.call{value: balances[msg.sender]}("");
+        (bool sent,) = msg.sender.call{value: share}("");
         require(sent, "Failed to send Ether");
     }
 }
