@@ -1,8 +1,6 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-
 contract Payments {
   event MoneyDeposited(address indexed sender, uint256 amount);
   event Received(address, uint256);
@@ -22,7 +20,7 @@ contract Payments {
         return address(this).balance;
     }
   
-  function withdraw(address payable _to) public payable {
+  function withdraw(address _to) public {
         require(_to == msg.sender, "No permission to withdraw");
 
         // Call returns a boolean value indicating success or failure.
