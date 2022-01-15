@@ -12,9 +12,9 @@ describe('Payments', function () {
     await owner.sendTransaction({ to: greeter.address, value: ethers.utils.parseEther('1') });
     expect(await greeter.getUserBalance()).to.equal(ethers.utils.parseEther('1'));
     expect(await greeter.getBalance()).to.equal(ethers.utils.parseEther('1'));
-    await greeter.withdraw(owner.address)
+    await greeter.withdraw()
     expect(await greeter.getUserBalance()).to.equal(0);
     expect(await greeter.getBalance()).to.equal(0);
-
   });
 });
+
